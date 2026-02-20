@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .section-title {
+        font-weight: 700;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .featured-card {
+        border-radius: 12px;
+        transition: 0.3s ease;
+    }
+
+    .featured-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .custom-badge {
+        background-color: #b08d57;
+        color: white;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 8px;
+    }
+
+    .custom-btn {
+        border: 1px solid #b08d57;
+        color: #b08d57;
+    }
+
+    .custom-btn:hover {
+        background-color: #b08d57;
+        color: white;
+    }
+</style>
+
+<!-- Category Title -->
+<h3 class="section-title">
+    {{ current_category.category_name }}
+</h3>
+
+<div class="row">
+
+    <!-- LEFT SIDE - Posts -->
+    <div class="col-md-8">
+        <div class="row g-4">
+
+            {% if posts %}
+                {% for post in posts %}
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 featured-card">
+                        <div class="card-body d-flex flex-column">
+
+                            <div class="mb-2">
+                                <span class="custom-badge">
+                                    {{ post.category }}
+                                </span>
+                            </div>
+
+                            <h5 class="fw-semibold">
+                                {{ post.title }}
+                            </h5>
+
+                            <small class="text-muted mb-2">
+                                {{ post.updated_at|timesince }} ago • {{ post.author }}
+                            </small>
+
+                            <p class="text-muted">
+                                {{ post.short_desc|truncatewords:20 }}
+                            </p>
+
+                            <div class="mt-auto">
+                                <a href="#" class="btn custom-btn btn-sm">
+                                    Read More →
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        No posts available in this category.
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE - Sidebar -->
+    <div class="col-md-4">
+        <div class="blog-sidebar mb-4">
+            <h5>About</h5>
+            <p>
+                Welcome to the {{ current_category.category_name }} section.
+                Explore all posts related to this category.
+            </p>
+        </div>
+
+        <div class="blog-sidebar">
+            <h5>Follow Us</h5>
+            <ul class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

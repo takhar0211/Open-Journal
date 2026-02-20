@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import *
 # Create your views here.
 def home(request):
@@ -13,3 +13,20 @@ def home(request):
         'recent_post':recent_post
     }
     return render(request,'home.html',context)
+
+def category_page(request,slug):
+    current_category = get_object_or_404(Category,slug=slug)
+    
+    posts = blog.objects.filter(
+        category = current_category,
+        status = 1,
+    ).order_by('-created_at')
+
+    categories = Category.objects.all()
+
+    context = {
+        'posts' : posts,
+        'category':categories,
+        'current_category':current_category,
+    }
+    return render(request,'category_page.html',context)
