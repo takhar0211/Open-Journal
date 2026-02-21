@@ -5,40 +5,49 @@
 <!-- Hero Section -->
 
 {% if hero_post %}
-<div class="hero-section mb-5" style="background-image: url('{{ hero_post.featured_image.url }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;">
+<a href="{% url 'blogs' hero_post.blog_slug %}" class="text-decoration-none text-white">
 
-    <h1 class="display-5 fw-bold">{{ hero_post.title }}</h1>
+    <div class="hero-section mb-5"
+        style="background-image: url('{{ hero_post.featured_image.url }}');
+               background-size: cover;
+               background-position: center;
+               background-repeat: no-repeat;">
 
-    <p class="lead mt-3">
-        {{ hero_post.short_desc | truncatewords:25 }}
-    </p>
+        <h1 class="display-5 fw-bold">
+            {{ hero_post.title }}
+        </h1>
 
-    <a href="#" class="btn btn-light btn-sm mt-2">
-        Continue Reading →
-    </a>
-</div>
+        <p class="lead mt-3">
+            {{ hero_post.short_desc|truncatewords:25 }}
+        </p>
+
+        <span class="btn btn-light btn-sm mt-2">
+            Continue Reading →
+        </span>
+
+    </div>
+
+</a>
 {% endif %}
 
 
 <!-- Featured Posts -->
 <h3 class="section-title mb-4"> Featured Posts</h3>
 <div class="row mb-4">
-    {% for post in featured_post %}
+    {% for post in featured_posts %}
     <div class="col-md-6 mb-3">
 
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <h4 class="card-title">{{post.title}}</h4>
-                <small class="text-muted">{{post.created_at | timesince}} ago | {{post.author}}</small>
-                <p class="card-text mt-2">
-                    {{post.short_desc |truncatewords:20}}
-                </p>
+        <a href="{%url 'blogs' post.blog_slug%}" class="text-decoration-none text-dark">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title">{{post.title}}</h4>
+                    <small class="text-muted">{{post.created_at | timesince}} ago | {{post.author}}</small>
+                    <p class="card-text mt-2">
+                        {{post.short_desc |truncatewords:20}}
+                    </p>
+                </div>
             </div>
-        </div>
-
+        </a>
     </div>
     {% endfor %}
 </div>
@@ -76,7 +85,7 @@
                         </p>
 
                         <div class="mt-auto">
-                            <a href="#" class="btn btn-outline-dark btn-sm">
+                            <a href="{%url 'blogs' post.blog_slug%}" class="btn btn-outline-dark btn-sm">
                                 Read More →
                             </a>
                         </div>

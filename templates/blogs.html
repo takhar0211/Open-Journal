@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .blog-title {
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    .blog-meta {
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    .blog-body {
+        font-size: 17px;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .blog-featured-img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .category-badge {
+        background-color: #b08d57;
+        color: white;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 20px;
+    }
+
+    .blog-sidebar {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <!-- Category -->
+        <div class="mb-3">
+            <span class="category-badge">
+                {{ post.category }}
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="blog-title mb-3">
+            {{ post.title }}
+        </h1>
+
+        <!-- Meta -->
+        <div class="blog-meta mb-4">
+            {{ post.updated_at|date:"F d, Y" }} •
+            {{ post.updated_at|timesince }} ago •
+            By {{ post.author }}
+        </div>
+        <!-- Short Description -->
+        <p class="lead text-muted">
+            {{ post.short_desc }}
+        </p>
+    </div>
+
+
+
+    <!-- LEFT SIDE - Blog Content -->
+    <div class="col-md-8">
+
+
+
+
+        <!-- Featured Image -->
+        {% if post.featured_image %}
+        <img src="{{ post.featured_image.url }}" class="blog-featured-img">
+        {% endif %}
+
+
+        <hr>
+
+        <!-- Blog Body -->
+        <div class="blog-body">
+            {{ post.blog_body|linebreaks }}
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE - Sidebar -->
+    <div class="col-md-4">
+
+        <!-- About Category -->
+        <div class="blog-sidebar mb-4">
+            <h5>About {{ post.category.category_name }}</h5>
+            <p>
+                Explore more articles in the
+                <strong>{{ post.category.category_name }}</strong> category.
+            </p>
+            <a href="{% url 'category_page' post.category.slug %}" class="btn btn-outline-dark btn-sm">
+                View Category →
+            </a>
+        </div>
+
+        <!-- Author Box -->
+        <div class="blog-sidebar mb-4">
+            <h5>About the Author</h5>
+            <p class="mb-1"><strong>{{ post.author }}</strong></p>
+            <p class="text-muted">
+                Passionate writer sharing knowledge and insights.
+            </p>
+        </div>
+
+        <!-- Follow Section -->
+        <div class="blog-sidebar">
+            <h5>Follow Us</h5>
+            <ul class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">LinkedIn</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
