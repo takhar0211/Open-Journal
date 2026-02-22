@@ -43,17 +43,31 @@
 
         /* ================= CATEGORY NAV ================= */
 
+        /* Category Nav Container */
         .category-nav {
             border-bottom: 1px solid #eaeaea;
-            padding-bottom: 12px;
         }
 
+        /* Wrapper */
+        .category-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            row-gap: 16px;
+            /* vertical spacing */
+            column-gap: 40px;
+            /* horizontal spacing */
+        }
+
+        /* Links */
         .category-link {
             text-decoration: none;
             color: #555;
             font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.5px;
             position: relative;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
             transition: 0.3s ease;
         }
 
@@ -163,8 +177,8 @@
         </header>
 
         <!-- ================= CATEGORY NAVBAR ================= -->
-        <nav class="category-nav mb-4">
-            <div class="d-flex justify-content-center flex-wrap gap-4">
+        <nav class="category-nav py-3 mb-4">
+            <div class="category-wrapper">
 
                 {% for cat in categories %}
                 <a class="category-link {% if current_category and cat.slug == current_category.slug %}active{% endif %}"
@@ -179,6 +193,7 @@
         <!-- ================= CONTENT BLOCK ================= -->
         {% block content %}
         {% endblock %}
+
 
     </div>
 

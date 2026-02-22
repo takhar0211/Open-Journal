@@ -10,6 +10,7 @@ class BlogAdmin(admin.ModelAdmin):
     list_editable =('is_featured','is_hero')
 
 class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('category_name',)}
     list_display = ('category_name' , 'created_at' , 'update_at')
     search_fields = ('category_name',)
 
